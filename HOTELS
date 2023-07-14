@@ -1,0 +1,28 @@
+#include <stdio.h>
+#include <algorithm>
+ 
+using namespace std;
+ 
+int main()
+{
+	int n, m;
+	scanf("%d %d", &n, &m);
+	
+	int total = 0, ans = 0, close = 1;
+	int sw[n+ 5];
+	
+	for(int z = 1; z <= n; z++)
+	{
+		scanf("%d", &sw[z]);
+		total = total + sw[z];
+		
+		while(total > m)
+		{
+			total = total - sw[close];
+			close++;
+		}
+		ans = max(ans, total);
+	}
+	
+	printf("%d\n", ans);
+} 
