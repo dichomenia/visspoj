@@ -1,0 +1,66 @@
+#include <stdio.h>
+#include <cstring>
+#include <queue>
+ 
+using namespace std;
+ 
+int main()
+{
+	int tc;
+	scanf("%d", &tc);
+	
+	for(int z = 1; z <= tc; z++)
+	{
+		int n, m, start, end;
+		scanf("%d %d %d %d", &n, &m, &start, &end);
+		vector < pair<int, int> > city[n+5];
+		
+		for(int k = 1; k <= m; k++)
+		{
+			int fr, to, dis;
+			scanf("%d %d %d", &fr, &to, &dis);
+			city[fr].push_back(make_pair(to, dis));
+			city[to].push_back(make_pair(fr, dis));
+		}
+		
+		bool visited[n+5];
+		memset(visited, false, sizeof(visited));
+		priority_queue < pair<int, int> > pq;
+		pq.push(make_pair(0, start));
+		bool impossible = false;
+		
+		while(pq.top().second != end)
+		{
+			int distance = -pq.top().first;
+			int from = pq.top().second;
+			pq.pop();
+			
+			if(visited[from])
+				continue;
+			
+			for(int a = 0; a < city[from].size(); a++)
+			{
+				int too = city[from][a].first;
+				int cost = distance + city[from][a].second;
+				
+				if(!visited[too])
+				{
+					pq.push( make_pair(-cost, too));
+				}
+			}
+			
+			visited[from] = true;
+			
+			if(pq.empty())
+			{
+				impossible = true;
+				break;
+			}
+		}
+		
+		if(impossible)
+			printf("NONE\n");
+		else
+			printf("%d\n", -pq.top().first);
+	} // end of tc
+} 
