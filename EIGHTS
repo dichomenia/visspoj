@@ -1,0 +1,20 @@
+#include <stdio.h>
+#include <iostream>
+using namespace std;
+ 
+int main()
+{
+	int tc;
+	cin >> tc;
+	
+	for(int a = 1; a <= tc; a++)
+	{
+		long long num;
+		scanf("%lld", &num);
+		
+		long long no;
+		no = 192 + (num - 1)*250;
+		
+		printf("%lld\n", no);
+	}
+} 
