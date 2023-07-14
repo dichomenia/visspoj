@@ -1,0 +1,28 @@
+#include <stdio.h>
+#include <algorithm>
+#include <cstring>
+ 
+using namespace std;
+ 
+int main()
+{
+	int maxweight, item;
+	scanf("%d %d", &maxweight, &item);
+	
+	int value[maxweight+5], weight[maxweight+5], memweight[maxweight + 5];
+	
+	memset(memweight, 0, sizeof(memweight));
+	
+	for(int a = 1; a <= item; a++)
+	{
+		scanf("%d %d", &value[a], &weight[a]);
+		
+		for(int b = maxweight; b >= weight[a]; b--)
+		{
+			memweight[b] = max(memweight[b], value[a] + memweight[b - weight[a]]);
+		}
+	}
+	
+	
+	printf("%d\n", memweight[maxweight]);
+} 
