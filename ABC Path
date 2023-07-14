@@ -1,0 +1,144 @@
+#include <stdio.h>
+#include <queue>
+#include <cstring>
+ 
+using namespace std;
+ 
+int main()
+{
+	int h, w;
+	int count = 1;
+ 
+	while(h != 0 && w != 0)
+	{
+		scanf("%d %d", &h, &w);
+		if(h == 0 && w == 0)
+		{
+			break;
+		}
+		
+		char arr[h+5][w+5];
+		bool visited[h+5][w+5];
+		memset(visited, false, sizeof(visited));
+		queue < pair<int, pair<int, int> > > q;
+		
+		for(int y = 0; y < h; y++)
+		{
+			for(int x = 0; x < w; x++)
+			{
+				scanf(" %c", &arr[y][x]);
+				
+				if(arr[y][x] == 'A')
+				{
+					q.push(make_pair(1, make_pair(y, x)));
+					visited[y][x] = true;
+				}
+			}
+		}
+		
+		if(q.empty())
+		{
+			printf("Case %d: 0\n", count);
+			count++;
+			continue;
+		}
+		
+		int s, r, c;
+		while(q.empty()==false)
+		{
+			s = q.front().first;
+			r = q.front().second.first;
+			c = q.front().second.second;
+			q.pop();
+			
+//			printf("s=%d  r=%d  c=%d\n", s, r, c);
+			
+			if(r > 0 && c > 0)
+			{
+				if(visited[r-1][c-1] == false && arr[r-1][c-1] == arr[r][c]+1)
+				{
+//					printf("masuk atas kiri\n");
+					q.push(make_pair(s+1, make_pair(r-1, c-1)));
+					visited[r-1][c-1] = true;
+				}
+			}
+			
+			if(r > 0)
+			{
+				if(visited[r-1][c] == false && arr[r-1][c] == arr[r][c]+1)
+				{
+//					printf("masuk atas\n");
+					q.push(make_pair(s+1, make_pair(r-1, c)));
+					visited[r-1][c] = true;
+				}
+			}
+			
+			if(r > 0 && c < w-1)
+			{
+				if(visited[r-1][c+1] == false && arr[r-1][c+1] == arr[r][c]+1)
+				{
+//					printf("masuk atas kanan\n");
+					q.push(make_pair(s+1, make_pair(r-1, c+1)));
+					visited[r-1][c+1] = true;
+				}
+			}
+			
+			if(c > 0)
+			{
+				if(visited[r][c-1] == false && arr[r][c-1] == arr[r][c]+1)
+				{
+//					printf("masuk kiri\n");
+					q.push(make_pair(s+1, make_pair(r, c-1)));
+					visited[r][c-1] = true;
+				}
+			}
+			
+			if(c < w-1)
+			{
+				if(visited[r][c+1] == false && arr[r][c+1] == arr[r][c]+1)
+				{
+//					printf("masuk kanan\n");
+					q.push(make_pair(s+1, make_pair(r, c+1)));
+					visited[r][c+1] = true;
+				}
+			}
+			
+			if(r < h-1 && c > 0)
+			{
+				if(visited[r+1][c-1] == false && arr[r+1][c-1] == arr[r][c]+1)
+				{
+//					printf("masuk bawah kiri\n");
+					q.push(make_pair(s+1, make_pair(r+1, c-1)));
+					visited[r+1][c-1] = true;
+				}
+			}
+			
+			if(r < h-1)
+			{
+				if(visited[r+1][c] == false && arr[r+1][c] == arr[r][c]+1)
+				{
+//					printf("masuk bawah\n");
+					q.push(make_pair(s+1, make_pair(r+1, c)));
+					visited[r+1][c] = true;
+				}
+			}
+			
+			if(r < h-1 && c < w-1)
+			{
+				if(visited[r+1][c+1] == false && arr[r+1][c+1] == arr[r][c]+1)
+				{
+//					printf("masuk bawah kanan\n");
+					q.push(make_pair(s+1, make_pair(r+1, c+1)));
+					visited[r+1][c+1] = true;
+				}
+			}
+			
+			if(q.empty())
+			{
+				printf("Case %d: %d\n", count, s);
+				count++;
+			}
+		} // end of movement
+		
+	} // end of tc
+} 
