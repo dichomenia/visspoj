@@ -1,0 +1,44 @@
+#include <iostream>
+using namespace std;
+ 
+int main()
+{
+	bool end = false;
+	while(end == false)
+	{
+		int tc;
+		scanf("%d", &tc);
+		
+		if(tc == -1)
+			break;
+		
+		int cdy;
+		int mcd = 0;
+		int sum = 0;
+		int arr[10005];
+		
+		for(int a = 1; a <= tc; a++)
+		{
+			scanf("%d", &cdy);
+			sum = sum + cdy;
+			arr[a] = cdy;
+			if(cdy >= mcd)
+				mcd = cdy;
+		}
+		
+		int sisa, rata;
+		sisa = sum % tc;
+		rata = sum / tc;
+		if(sisa == 0)
+		{
+			int pin = 0;
+			for(int a=1; a<=tc; a++)
+				if(arr[a] < rata)
+					pin =  pin + (rata-arr[a]);
+			//int pin = arr[mcd]*mcd - arr[mcd]*rata;
+			printf("%d\n", pin);
+		}
+		else
+			printf("-1\n");
+	}
+} 
