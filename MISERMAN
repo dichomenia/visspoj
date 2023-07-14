@@ -1,0 +1,63 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <algorithm>
+ 
+using namespace std;
+ 
+int main()
+{
+	int n, m;
+	scanf("%d %d", &n, &m);
+	
+	int arr[n+5][m+5];
+		
+	for(int r = 1; r <= n; r++)
+	{
+		for(int c = 1; c <= m; c++)
+		{
+			scanf("%d", &arr[r][c]);
+		}
+	}		
+	
+	int memo[n+5][m+5];
+ 
+	for(int c = 1; c <= m; c++)
+		memo[1][c] = arr[1][c];
+ 
+	for(int r = 1; r <= n; r++)
+		for(int c = 1; c <= m; c++)
+			memo[r+1][c] = 1000000000;
+		
+ 
+	for(int r = 1; r < n; r++)
+	{
+		
+		for(int c = 1; c <= m; c++)
+		{
+			if(c == n)
+			{
+				memo[r+1][c-1] = min(memo[r+1][c-1], memo[r][c] + arr[r+1][c-1]);
+				memo[r+1][c] = min(memo[r+1][c], memo[r][c] + arr[r+1][c]);
+			}
+			
+			else if(c == 1)
+			{
+				memo[r+1][c] = min(memo[r+1][c], memo[r][c] + arr[r+1][c]);
+				memo[r+1][c+1] = min(memo[r+1][c+1], memo[r][c] + arr[r+1][c+1]);
+			}
+			
+			else
+			{
+				memo[r+1][c-1] = min(memo[r+1][c-1], memo[r][c] + arr[r+1][c-1]);
+				memo[r+1][c] = min(memo[r+1][c], memo[r][c] + arr[r+1][c]);
+				memo[r+1][c+1] = min(memo[r+1][c+1], memo[r][c] + arr[r+1][c+1]);
+			}
+		}
+	}
+		
+	int minim = 100000000;
+	for(int c = 1; c <= n; c++)
+		minim = min(minim, memo[n][c]);
+	
+	printf("%d\n", minim);
+} 
