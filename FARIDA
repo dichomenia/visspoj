@@ -1,0 +1,33 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <algorithm>
+ 
+using namespace std;
+ 
+int main()
+{
+	int tc, k=1;
+	scanf("%d", &tc);
+	
+	for(int z = 1; z <= tc; z++)
+	{
+		int sco;
+		scanf("%d", &sco);
+		long long int a[sco+5], b[sco+5];
+		b[0] = 0;
+		
+		for(int s = 1; s <= sco; s++)
+		{
+			scanf("%lld", &a[s]);
+		}
+		
+		b[1] = a[1];
+		
+		for(int x = 2; x <= sco; x++)
+		{
+			b[x] = max(b[x-2] + a[x], b[x-1]);
+		}
+		
+		printf("Case %d: %lld\n", z, b[sco]);
+	}
+}
