@@ -1,0 +1,20 @@
+#include <stdio.h>
+#include <math.h>
+ 
+int main()
+{
+	int ket, a, b, c, cnt = 0;
+	scanf("%d", &ket);
+	
+	int x = sqrt(ket);
+	
+	for(a = 1; a <= x; a++)
+		for(b = a; b <= ket; b++)
+		{
+			c = a * b;
+			if(c <= ket)
+				cnt++;
+		}
+	
+	printf("%d\n", cnt);
+} 
