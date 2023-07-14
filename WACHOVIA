@@ -1,0 +1,38 @@
+#include <stdio.h>
+#include <algorithm>
+#include <cstring>
+ 
+using namespace std;
+ 
+int main()
+{
+	int tc;
+	scanf("%d", &tc);
+	
+	for(int z = 1; z <= tc; z++)
+	{
+		int k, m;
+		scanf("%d %d", &k, &m);
+		
+		int bgw[m+5], bgv[m+5], memo[m+5][k+5];
+		for(int y = 1; y <= m; y++)
+		{
+			scanf("%d %d", &bgw[y], &bgv[y]);
+		}
+		
+		memset(memo, 0, sizeof(memo));
+		
+		for(int row = 1; row <= m; row++)
+		{
+			for(int col = 1; col <= k; col++)
+			{
+				if(col < bgw[row])
+					memo[row][col] = memo[row-1][col];
+				else
+					memo[row][col] = max(memo[row-1][col], bgv[row] + memo[row-1][col- bgw[row]]);
+			}
+		}
+		
+		printf("Hey stupid robber, you can get %d.\n", memo[m][k]);
+	}
+} 
