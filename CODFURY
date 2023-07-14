@@ -1,0 +1,40 @@
+#include <stdio.h>
+#include <algorithm>
+ 
+using namespace std;
+ 
+int main()
+{
+	int tc;
+	scanf("%d", &tc);
+	
+	for(int z = 1; z <= tc; z++)
+	{
+		int p, m;
+		scanf("%d %d", &p, &m);
+		
+		int rob[p+5], tot = 0, ans = 0, close = 1, plt = 0, anspl = 0;
+		for(int y = 1; y <= p; y++)
+		{
+			scanf("%d", &rob[y]);
+			tot = tot + rob[y];
+			plt++;
+				
+			while(tot > m)
+			{
+				tot = tot - rob[close];
+				close++;
+				plt--;
+			}
+			if(plt > anspl)
+			{
+				anspl = plt;
+				ans = tot;
+			}
+			else if(plt == anspl)
+				ans = min(ans, tot);
+		}
+		
+		printf("%d %d\n", ans, anspl);
+	}
+} 
